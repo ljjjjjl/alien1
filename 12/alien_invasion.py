@@ -23,7 +23,7 @@ class AlienInvasion:
                 if event.type == pygame.QUIT:
                     sys.exit()
 
-            #每次循环时都会重绘屏幕
+            # 每次循环时都会重绘屏幕
             self.screen.fill(self.bg_color)
             # 让最近绘制屏幕可见
             pygame.display.flip()

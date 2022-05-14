@@ -24,6 +24,7 @@ class AlienInvasion:
         """开始游戏主循环"""
         while True:
             self._check_events()
+            self.ship.update()
             self._update_screen()
 
     def _check_events(self):
@@ -33,8 +34,12 @@ class AlienInvasion:
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RIGHT:
-                # 向右移动飞船
-                    self.ship.rect.x +=1
+                    # 向右移动飞船
+                    self.ship.moving_right = True
+            elif event.type == pygame.KEYUP:
+                if event.key == pygame.K_RIGHT:
+                    # 松开时才停止移动
+                    self.ship.moving_right = False
 
     def _update_screen(self):
         """更新屏幕上的图像，并切换到新屏幕"""

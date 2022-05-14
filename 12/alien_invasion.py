@@ -18,6 +18,8 @@ class AlienInvasion:
 
         pygame.display.set_caption("Alien Invasion")
 
+        self.ship = Ship(self)
+
     def run_game(self):
         """开始游戏主循环"""
         while True:
@@ -28,6 +30,7 @@ class AlienInvasion:
 
             # 每次循环时都会重绘屏幕
             self.screen.fill(self.settings.bg_color)
+            self.ship.blitme()
             # 让最近绘制屏幕可见
             pygame.display.flip()
 

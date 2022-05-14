@@ -48,8 +48,9 @@ class AlienInvasion:
             elif event.type == pygame.KEYUP:
                 # 松开时才停止移动
                 self._check_keyup_events(event)
-                if self.bullet_flag:
-                    self._fire_bullet()
+                # if self.bullet_flag:
+                #     self._fire_bullet()
+        self._fire_bullet()
 
     def _check_keydown_events(self, event):
         """响应按建"""
@@ -89,6 +90,18 @@ class AlienInvasion:
         for bullet in self.bullets.copy():
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
+        self._check_bullet_alien_collisions()
+
+    def _check_bullet_alien_collisions(self):
+        """响应子弹与外星人的碰撞"""
+        # 删除发生碰撞的子弹和外星人
+        collisions = pygame.sprite.groupcollide(
+            self.bullets, self.aliens, True, True)
+
+        if not self.aliens:
+            # 删除现有子弹，并创建一群新的外星人
+            self.bullets.empty()
+            self._create_fleet()
 
     def _create_fleet(self):
         """创建外星人群"""

@@ -17,10 +17,13 @@ class Ship:
         self.rect.midbottom = self.screen_rect.midbottom
 
         # 移动标志
+        self.moving_left = False
         self.moving_right = False
 
     def update(self):
         """根据移动标志飞船位置"""
+        if self.moving_left:
+            self.rect.x -= 1
         if self.moving_right:
             self.rect.x += 1
 

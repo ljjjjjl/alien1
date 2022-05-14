@@ -3,6 +3,7 @@ import pygame
 from settings import Settings
 from ship import Ship
 from buulet import Bullet
+from alien import Alien
 
 
 class AlienInvasion:
@@ -23,6 +24,9 @@ class AlienInvasion:
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
         self.bullet_flag = False
+
+        self.aliens = pygame.sprite.Group()
+        self._create_fleet()
 
     def run_game(self):
         """开始游戏主循环"""
@@ -85,6 +89,12 @@ class AlienInvasion:
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
 
+    def _create_fleet(self):
+        """Create the fleet of aliens."""
+        # Make an alien.
+        alien = Alien(self)
+        self.aliens.add(alien)
+
     def _update_screen(self):
         """更新屏幕上的图像，并切换到新屏幕"""
         # 每次循环时都会重绘屏幕
@@ -93,6 +103,7 @@ class AlienInvasion:
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
 
+        self.aliens.draw(self.screen)
         # 让最近绘制屏幕可见
         pygame.display.flip()
 

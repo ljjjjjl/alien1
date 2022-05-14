@@ -11,7 +11,7 @@ class Alien(Sprite):
         self.screen = ai_game.screen
 
         # 加载外星人图像并设置rect属性
-        self.image = pygame.image.load('alien.bmp')
+        self.image = pygame.image.load('images/alien.bmp')
         self.rect = self.image.get_rect()
 
         # 初始位置

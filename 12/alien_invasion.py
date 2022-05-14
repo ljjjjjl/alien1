@@ -22,6 +22,7 @@ class AlienInvasion:
 
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
+        self.bullet_flag = False
 
     def run_game(self):
         """开始游戏主循环"""
@@ -42,6 +43,8 @@ class AlienInvasion:
             elif event.type == pygame.KEYUP:
                 # 松开时才停止移动
                 self._check_keyup_events(event)
+                if self.bullet_flag:
+                    self._fire_bullet()
 
     def _check_keydown_events(self, event):
         """响应按建"""
@@ -55,7 +58,7 @@ class AlienInvasion:
             sys.exit()
         elif event.key == pygame.K_w:
             # fire开火
-            self._fire_bullet()
+            self.bullet_flag = True
 
     def _check_keyup_events(self, event):
         """响应松开"""
@@ -63,6 +66,8 @@ class AlienInvasion:
             self.ship.moving_right = False
         if event.key == pygame.K_a:
             self.ship.moving_left = False
+        elif event.key == pygame.K_w:
+            self.bullet_flag = False
 
     def _fire_bullet(self):
         """创建一颗子弹，并加入编组bullets"""

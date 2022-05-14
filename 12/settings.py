@@ -18,4 +18,4 @@ class Settings:
         self.bullet_height = 15
         self.bullet_color = (60, 60, 60)
         # 子弹数量
-        self.bullets_allowed = 2
+        self.bullets_allowed = 10

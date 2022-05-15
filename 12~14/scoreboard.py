@@ -10,6 +10,7 @@ class Scoreboard:
     def __init__(self, ai_game):
         """初始化"""
         self.ai_game = ai_game
+
         self.screen = ai_game.screen
         self.screen_rect = self.screen.get_rect()
         self.settings = ai_game.settings
@@ -23,7 +24,7 @@ class Scoreboard:
         self.prep_score()
         self.prep_high_score()
         self.prep_level()
-        # self.prep_ships()
+        self.prep_ships()
 
     def prep_score(self):
         """将得分转换为渲染的图像."""
@@ -81,4 +82,4 @@ class Scoreboard:
         self.screen.blit(self.score_image, self.score_rect)
         self.screen.blit(self.high_score_image, self.high_score_rect)
         self.screen.blit(self.level_image, self.level_rect)
-        # self.ships.draw(self.screen)
+        self.ships.draw(self.screen)

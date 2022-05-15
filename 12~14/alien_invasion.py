@@ -8,6 +8,7 @@ from buulet import Bullet
 from alien import Alien
 from game_stats import GameStats
 from button import Button
+from scoreboard import Scoreboard
 
 
 class AlienInvasion:
@@ -27,6 +28,9 @@ class AlienInvasion:
 
         # 创建用于存储游戏统计信息的实例对象
         self.stats = GameStats(self)
+
+        # 创建计分牌
+        self.sb = Scoreboard(self)
 
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
@@ -233,6 +237,9 @@ class AlienInvasion:
             bullet.draw_bullet()
 
         self.aliens.draw(self.screen)
+
+        # 显示得分
+        self.sb.show_score()
 
         # 如果游戏处于非活动状态，就绘制play按钮
         if not self.stats.game_active:

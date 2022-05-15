@@ -4,7 +4,7 @@ from time import sleep
 import pygame
 from settings import Settings
 from ship import Ship
-from buulet import Bullet
+from bullet import Bullet
 from alien import Alien
 from game_stats import GameStats
 from button import Button
@@ -79,6 +79,7 @@ class AlienInvasion:
             self.stats.reset_stats()
             self.stats.game_active = True
             self.sb.prep_score()
+            self.sb.prep_level()
 
             # 清空外星人和子弹
             self.aliens.empty()
@@ -149,6 +150,10 @@ class AlienInvasion:
             self.bullets.empty()
             self._create_fleet()
             self.settings.increase_speed()
+
+            # 提高等级
+            self.stats.level += 1
+            self.sb.prep_level()
         # 外星人与飞船碰撞
         if pygame.sprite.spritecollideany(self.ship, self.aliens):
             self._ship_hit()

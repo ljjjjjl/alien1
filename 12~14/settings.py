@@ -23,6 +23,26 @@ class Settings:
 
         # 外星人设置
         self.alien_speed = 1.0
-        self.fleet_drop_speed = 100
+        self.fleet_drop_speed = 10
         # fleet_direction -1代表左移 1代表右移
         self.fleet_direction = 1
+
+        # 加快游戏节奏的速度
+        self.speedup_scale = 2
+
+        self.initialize_dynamic_settings()
+
+    def initialize_dynamic_settings(self):
+        """初始化随游戏进行而变化"""
+        self.ship_speed = 1.5
+        self.bullet_speed = 3.0
+        self.alien_speed = 1.0
+
+        # fleet_direction -1左 1右
+        self.fleet_direction = 1
+
+    def increase_speed(self):
+        """提高速度"""
+        self.ship_speed *= self.speedup_scale
+        self.bullet_speed *= self.speedup_scale
+        self.alien_speed *= self.speedup_scale

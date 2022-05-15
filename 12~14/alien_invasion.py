@@ -78,6 +78,7 @@ class AlienInvasion:
             # 重置游戏信息
             self.stats.reset_stats()
             self.stats.game_active = True
+            self.sb.prep_score()
 
             # 清空外星人和子弹
             self.aliens.empty()
@@ -135,6 +136,13 @@ class AlienInvasion:
         # 删除发生碰撞的子弹和外星人
         collisions = pygame.sprite.groupcollide(
             self.bullets, self.aliens, True, True)
+
+        if collisions:
+            for aliens in collisions.values():
+                # 遍历字典collisions的每个值，确定每个消灭的外星人都记入得分
+                self.stats.score += self.settings.alien_points * len(aliens)
+            self.sb.prep_score()
+            self.sb.check_high_score()
 
         if not self.aliens:
             # 删除现有子弹，并创建一群新的外星人

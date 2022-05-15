@@ -1,9 +1,12 @@
 import sys
+from time import sleep
+
 import pygame
 from settings import Settings
 from ship import Ship
 from buulet import Bullet
 from alien import Alien
+from game_stats import GameStats
 
 
 class AlienInvasion:
@@ -21,6 +24,9 @@ class AlienInvasion:
 
         pygame.display.set_caption("Alien Invasion")
 
+        # 创建用于存储游戏统计信息的实例对象
+        self.stats = GameStats(self)
+
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
         self.bullet_flag = False
@@ -32,10 +38,10 @@ class AlienInvasion:
         """开始游戏主循环"""
         while True:
             self._check_events()
-            self.ship.update()
-            self.bullets.update()
-            self._update_bullets()
-            self._update_aliens()
+            if self.stats.game_active:
+                self.ship.update()
+                self._update_bullets()
+                self._update_aliens()
             self._update_screen()
 
     def _check_events(self):
@@ -102,6 +108,39 @@ class AlienInvasion:
             # 删除现有子弹，并创建一群新的外星人
             self.bullets.empty()
             self._create_fleet()
+        # 外星人与飞船碰撞
+        if pygame.sprite.spritecollideany(self.ship, self.aliens):
+            self._ship_hit()
+
+        # 外星人到达底部
+        self._check_aliens_bottom()
+
+    def _check_aliens_bottom(self):
+        """检查是否有外星人到达低端"""
+        screen_rect = self.screen.get_rect()
+        for alien in self.aliens.sprites():
+            if alien.rect.bottom >= screen_rect.bottom:
+                # 直接调用飞船被外星人撞到的处理方法
+                self._ship_hit()
+                break
+
+    def _ship_hit(self):
+        """响应飞船被外星人撞到"""
+        if self.stats.ships_left > 0:
+            # 剩余飞船数减1
+            self.stats.ships_left -= 1
+
+            # 清空余下的外星人和子弹
+            self.aliens.empty()
+            self.bullets.empty()
+
+            # 重新创建
+            self._create_fleet()
+            self.ship.center_ship()
+
+            sleep(0.5)
+        else:
+            self.stats.game_active = False
 
     def _create_fleet(self):
         """创建外星人群"""

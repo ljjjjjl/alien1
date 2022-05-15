@@ -19,6 +19,8 @@ class Bullet(Sprite):
 
         # 用float存储子弹位置
         self.y = float(self.rect.y)
+        self.xl = float(self.rect.x)
+        self.xr = float(self.rect.x)
 
     def update(self):
         """向上移动子弹"""
@@ -26,6 +28,20 @@ class Bullet(Sprite):
         self.y -= self.settings.bullet_speed
         # 更新表示子弹的rect的位置
         self.rect.y = self.y
+
+    def update_left(self):
+        """向左移动子弹"""
+        # 更新float
+        self.xl -= self.settings.bullet_speed
+        # 更新表示子弹的rect的位置
+        self.rect.x = self.xl
+
+    def update_right(self):
+        """向右移动子弹"""
+        # 更新float
+        self.xr -= self.settings.bullet_speed
+        # 更新表示子弹的rect的位置
+        self.rect.x = self.xr
 
     def draw_bullet(self):
         """在屏幕上绘制子弹"""

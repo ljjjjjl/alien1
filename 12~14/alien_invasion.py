@@ -66,7 +66,8 @@ class AlienInvasion:
                 self._check_keyup_events(event)
                 # if self.bullet_flag:
                 #     self._fire_bullet()
-        self._fire_bullet()
+        if self.bullet_flag:
+            self._fire_bullet()
 
     def _check_play_button(self, mouse_pos):
         """单击play按钮开始游戏"""

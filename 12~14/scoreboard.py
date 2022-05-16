@@ -63,7 +63,7 @@ class Scoreboard:
         self.level_rect.top = self.score_rect.bottom + 10
 
     def prep_ships(self):
-        """Show how many ships are left."""
+        """剩余飞船数"""
         self.ships = Group()
         for ship_number in range(self.stats.ships_left):
             ship = Ship(self.ai_game)
@@ -76,6 +76,11 @@ class Scoreboard:
         if self.stats.score > self.stats.high_score:
             self.stats.high_score = self.stats.score
             self.prep_high_score()
+            self.indoc()
+
+    def indoc(self):
+        with open('score', 'w') as file_object:
+            file_object.write(f"最高得分为：{self.stats.high_score}\n")
 
     def show_score(self):
         """显示得分"""

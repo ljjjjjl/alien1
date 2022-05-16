@@ -228,7 +228,7 @@ class AlienInvasion:
         star.rect.x = star_width + 2 * star_width * star_number
         star.rect.y = star.rect.height + 2 * star.rect.height * row_number
         self.stars.add(star)
-        print(123)
+        # print(123)
 
     def _create_fleet(self):
         """创建外星人群"""

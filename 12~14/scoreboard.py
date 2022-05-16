@@ -80,7 +80,7 @@ class Scoreboard:
 
     def indoc(self):
         with open('score', 'w') as file_object:
-            file_object.write(f"最高得分为：{self.stats.high_score}\n")
+            file_object.write(f"{self.stats.high_score}\n")
 
     def show_score(self):
         """显示得分"""

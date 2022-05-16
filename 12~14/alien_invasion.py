@@ -10,6 +10,9 @@ from game_stats import GameStats
 from button import Button
 from scoreboard import Scoreboard
 
+from star import Star
+from random import randint
+
 
 class AlienInvasion:
     """"管理游戏资源和行为的类"""
@@ -40,6 +43,9 @@ class AlienInvasion:
         self._create_fleet()
         # 创建按钮
         self.play_button = Button(self, "Play")
+        # 生成星星
+        self.stars = pygame.sprite.Group()
+        self._create_stars()
 
     def run_game(self):
         """开始游戏主循环"""
@@ -194,11 +200,41 @@ class AlienInvasion:
             # 显示鼠标光标
             pygame.mouse.set_visible(True)
 
+    def _create_stars(self):
+        star = Star(self)
+        star_width, star_height = star.rect.size
+        # 计算一行可容纳
+        available_space_x = self.settings.screen_width - (2 * star_width)
+        number_stars_x = available_space_x // (2 * star_width)
+
+        # 计算屏幕可容纳
+        ship_height = self.ship.rect.height
+        available_space_y = (self.settings.screen_height -
+                             (2 * star_height) - ship_height)
+        number_rows = available_space_y // (2 * star_height)
+
+        listt = []
+        for num in range(20):
+            row_number = randint(0, number_rows)
+            alien_number = randint(0, number_stars_x)
+            if [row_number, alien_number] in listt:
+                continue
+            listt.append([row_number, alien_number])
+            self._create_star(alien_number, row_number)
+
+    def _create_star(self, star_number, row_number):
+        star = Star(self)
+        star_width, star_height = star.rect.size
+        star.rect.x = star_width + 2 * star_width * star_number
+        star.rect.y = star.rect.height + 2 * star.rect.height * row_number
+        self.stars.add(star)
+        print(123)
+
     def _create_fleet(self):
         """创建外星人群"""
         # 一个外星人
-        alien = Alien(self)
-        self.aliens.add(alien)
+        # alien = Alien(self)
+        # self.aliens.add(alien)
 
         # 创建一个外星人
         alien = Alien(self)
@@ -254,6 +290,7 @@ class AlienInvasion:
             bullet.draw_bullet()
 
         self.aliens.draw(self.screen)
+        self.stars.draw(self.screen)
 
         # 显示得分
         self.sb.show_score()

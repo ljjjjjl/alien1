@@ -19,6 +19,7 @@ class Ship(Sprite):
 
         # 将飞船放在屏幕的底中央
         self.rect.midbottom = self.screen_rect.midbottom
+        self.rect.bottomleft = self.screen_rect.bottomleft
 
         # 存储飞船属性x的最小值
         self.x = float(self.rect.x)
@@ -43,5 +44,6 @@ class Ship(Sprite):
 
     def center_ship(self):
         """让飞船出现在屏幕低端居中"""
-        self.rect.midbottom = self.screen_rect.midbottom
+        # self.rect.midbottom = self.screen_rect.midbottom
+        self.rect.bottomleft = self.screen_rect.bottomleft
         self.x = float(self.rect.x)

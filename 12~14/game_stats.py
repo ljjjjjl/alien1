@@ -27,3 +27,7 @@ class GameStats:
             doc = json.load(f)
             if doc:
                 self.high_score = int(doc)
+
+    def indoc(self):
+        with open('score', 'w', encoding='utf-8') as f:
+            json.dump(self.high_score, f)

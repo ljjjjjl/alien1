@@ -76,11 +76,11 @@ class Scoreboard:
         if self.stats.score > self.stats.high_score:
             self.stats.high_score = self.stats.score
             self.prep_high_score()
-            self.indoc()
+            self.stats.indoc()
 
-    def indoc(self):
-        with open('score', 'w') as file_object:
-            file_object.write(f"{self.stats.high_score}\n")
+    # def indoc(self):
+    #     with open('score', 'w') as file_object:
+    #         file_object.write(f"{self.stats.high_score}\n")
 
     def show_score(self):
         """显示得分"""
